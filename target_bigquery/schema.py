@@ -62,10 +62,17 @@ def create_valid_bigquery_field_name(field_name):
 
     cleaned_up_field_name = ""
 
+    cleanup_mapping = {
+        "+": "plus_",
+        "-": "minus_"
+    }
+
     # if char is alphanumeric (either letters or numbers), append char to our string
     for char in field_name:
         if char.isalnum():
             cleaned_up_field_name += char
+        elif char in cleanup_mapping.keys():
+            cleaned_up_field_name += cleanup_mapping[char]
         else:
             # otherwise, replace it with underscore
             cleaned_up_field_name += "_"
